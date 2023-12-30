@@ -9,7 +9,7 @@ export type TaskPropsType = {
 
 export const Task: React.FC<TaskPropsType> = (props) => {
     const {id, text, isFinished, ...rest} = props.task
-    const [showDescription, setShowDescription] = useState(false)
+    // const [showDescription, setShowDescription] = useState(false)
     const dispatch = useDispatch()
 
     const removeTask = () => dispatch(removeTaskAC(props.taskListId, id))
