@@ -1,5 +1,5 @@
 import React from 'react';
-import {removeTaskAC, removeTaskListAC, TaskListType} from '../../state/task-list-reducer';
+import {removeTaskListAC, TaskListType} from '../../state/task-list-reducer';
 import {Task} from '../task/Task';
 import AddItemForm from '../add-item-forn/AddItemForm';
 import {useDispatch} from 'react-redux';
@@ -10,14 +10,13 @@ type TaskListPropsType = {
 
 export const TaskList: React.FC<TaskListPropsType> = (props) => {
     console.log('TaskList')
-    const {id, title, tasks, ...rest} = props.taskList
+    const {id, title, tasks} = props.taskList
     const dispatch = useDispatch()
 
     const removeTaskList = () => dispatch(removeTaskListAC(id))
-    // const editTaskListTitle = (nweTitle: string) => dispatch(removeTaskAC(id, title))
 
     return (
-        <div>
+        <div style={{border: '1px solid red', width: '300px', padding: '5px'}}>
             <AddItemForm/>
             <h3>
                 {title}

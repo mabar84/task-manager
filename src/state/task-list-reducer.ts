@@ -63,6 +63,16 @@ export const taskListReducer = (state: StateType = initialState, action: Actions
                 }
                 : tl)
         }
+        case 'CHANGE-TASK-TitLE': {
+            return state.map(tl => tl.id === action.taskListId
+                ? {
+                    ...tl, tasks: tl.tasks
+                        .map(t => t.id === action.taskId
+                            ? {...t, text: action.title}
+                            : t)
+                }
+                : tl)
+        }
         default:
             return state
     }
@@ -94,7 +104,7 @@ type ActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof removeTaskListAC>
     | ReturnType<typeof changeTaskStatusAC>
-// | ReturnType<typeof editTaskListTitle>
+    | ReturnType<typeof changeTaskTitleAC>
 
 export const removeTaskAC = (taskListId: number, taskId: number) => ({type: 'REMOVE-TASK' as const, taskListId, taskId})
 export const removeTaskListAC = (taskListId: number) => ({type: 'REMOVE-TASK-LIST' as const, taskListId})
@@ -104,6 +114,12 @@ export const changeTaskStatusAC = (taskListId: number, taskId: number, isFinishe
     taskListId,
     taskId,
     isFinished
+})
+export const changeTaskTitleAC = (taskListId: number, taskId: number, title: string) => ({
+    type: 'CHANGE-TASK-TitLE' as const,
+    taskListId,
+    taskId,
+    title
 })
 
 

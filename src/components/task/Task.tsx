@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from 'react';
-import {changeTaskStatusAC, removeTaskAC, TaskType} from '../../state/task-list-reducer';
+import React, {ChangeEvent, useState} from 'react';
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TaskType} from '../../state/task-list-reducer';
 import {useDispatch} from 'react-redux';
 
 export type TaskPropsType = {
@@ -9,27 +9,35 @@ export type TaskPropsType = {
 
 export const Task: React.FC<TaskPropsType> = (props) => {
     const {id, text, isFinished} = props.task
-    // const [showDescription, setShowDescription] = useState(false)
+    const [editMode, setEditMode] = useState(false)
+    const [value, setValue] = useState(text)
     const dispatch = useDispatch()
 
+    const editTask = () => setEditMode(true)
+    const saveTask = () => {
+        setEditMode(false)
+        dispatch(changeTaskTitleAC(props.taskListId, id, value))
+    }
     const removeTask = () => dispatch(removeTaskAC(props.taskListId, id))
-    const editTask = () => dispatch(removeTaskAC(props.taskListId, id))
-    // const switchShowDescription = () => setShowDescription(!showDescription)
 
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(props.taskListId, id, e.currentTarget.checked))
+    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch(changeTaskStatusAC(props.taskListId, id, e.currentTarget.checked))
 
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
 
     return (
         <div>
-            <input onChange={changeTaskStatus} checked={isFinished} id={`checkbox-${props.taskListId}-${id}`}
-                   type="checkbox"/>
-            <label htmlFor={`checkbox-${props.taskListId}-${id}`}>{text}</label>
-            <br/>
+            {editMode ? <input onChange={onChangeInputHandler} value={value} autoFocus/>
+                : <div style={{backgroundColor: 'red', width: 'max-content', cursor: 'pointer'}}>
+                    <input onChange={changeTaskStatus} checked={isFinished} id={`checkbox-${props.taskListId}-${id}`}
+                           type="checkbox"/>
+                    <label htmlFor={`checkbox-${props.taskListId}-${id}`}>{text}</label>
+                </div>
+            }
             <button onClick={removeTask}>del</button>
-            <button onClick={editTask}>edit</button>
-            {/*<button onClick={switchShowDescription}>details</button>*/}
+            {editMode ? <button onClick={saveTask}>save</button>
+                : <button onClick={editTask}>edit</button>}
             <br/>
-            {/*{showDescription && description}*/}
         </div>
     )
 }
