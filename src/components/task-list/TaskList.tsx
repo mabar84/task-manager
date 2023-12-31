@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {changeTaskListTitleAC, removeTaskListAC, TaskListType} from '../../state/task-list-reducer';
+import {addTaskAC, changeTaskListTitleAC, removeTaskListAC, TaskListType} from '../../state/task-list-reducer';
 import {Task} from '../task/Task';
 import AddItemForm from '../add-item-forn/AddItemForm';
 import {useDispatch} from 'react-redux';
@@ -23,6 +23,7 @@ export const TaskList: React.FC<TaskListPropsType> = (props) => {
     }
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
 
+    const addTask = (title: string) => dispatch(addTaskAC(id, title))
 
     const removeTaskList = () => dispatch(removeTaskListAC(id))
 
@@ -36,8 +37,7 @@ export const TaskList: React.FC<TaskListPropsType> = (props) => {
             <button onClick={removeTaskList}>del</button>
             {editMode ? <button onClick={saveTaskList}>save</button>
                 : <button onClick={editTaskList}>edit</button>}
-            <AddItemForm callBack={() => {
-            }}/>
+            <AddItemForm callBack={addTask}/>
             {tasks.map(t => <Task key={t.id} task={t} taskListId={id}/>)}
         </div>
     );

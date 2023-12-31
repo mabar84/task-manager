@@ -1,5 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TaskType} from '../../state/task-list-reducer';
+import {
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC,
+    TaskType
+} from '../../state/task-list-reducer';
 import {useDispatch} from 'react-redux';
 
 export type TaskPropsType = {
