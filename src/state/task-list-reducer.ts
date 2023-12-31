@@ -66,7 +66,7 @@ export const taskListReducer = (state: StateType = initialState, action: Actions
                 }
                 : tl)
         }
-        case 'CHANGE-TASK-TitLE': {
+        case 'CHANGE-TASK-TITLE': {
             return state.map(tl => tl.id === action.taskListId
                 ? {
                     ...tl, tasks: tl.tasks
@@ -74,6 +74,11 @@ export const taskListReducer = (state: StateType = initialState, action: Actions
                             ? {...t, text: action.title}
                             : t)
                 }
+                : tl)
+        }
+        case 'CHANGE-TASK-LIST-TITLE': {
+            return state.map(tl => tl.id === action.taskListId
+                ? {...tl, title: action.title}
                 : tl)
         }
         default:
@@ -101,7 +106,7 @@ export type TaskType = {
 
 export type StatusType = 'all' | 'in progress' | 'finished'
 
-export type PriorityType = 'normal' | 'medium' | 'high'
+// export type PriorityType = 'normal' | 'medium' | 'high'
 
 type ActionsType =
     | ReturnType<typeof removeTaskAC>
@@ -109,6 +114,7 @@ type ActionsType =
     | ReturnType<typeof changeTaskStatusAC>
     | ReturnType<typeof changeTaskTitleAC>
     | ReturnType<typeof addTaskListAC>
+    | ReturnType<typeof changeTaskListTitleAC>
 
 export const removeTaskAC = (taskListId: number, taskId: number) => ({type: 'REMOVE-TASK' as const, taskListId, taskId})
 export const removeTaskListAC = (taskListId: number) => ({type: 'REMOVE-TASK-LIST' as const, taskListId})
@@ -121,15 +127,13 @@ export const changeTaskStatusAC = (taskListId: number, taskId: number, isFinishe
     isFinished
 })
 export const changeTaskTitleAC = (taskListId: number, taskId: number, title: string) => ({
-    type: 'CHANGE-TASK-TitLE' as const,
+    type: 'CHANGE-TASK-TITLE' as const,
     taskListId,
     taskId,
     title
 })
-
-
-// export const editTaskListTitle = (taskListId: number, title: string) => ({
-//     type: 'EDIT-TASK-LIST-TITLE' as const,
-//     taskListId,
-//     title
-// })
+export const changeTaskListTitleAC = (taskListId: number, title: string) => ({
+    type: 'CHANGE-TASK-LIST-TITLE' as const,
+    taskListId,
+    title
+})

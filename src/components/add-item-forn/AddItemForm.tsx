@@ -5,6 +5,7 @@ type AddItemFormPropsType = {
 }
 
 const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+    console.log('AddItemForm')
 
     const [title, setTitle] = useState('')
 

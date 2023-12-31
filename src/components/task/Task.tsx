@@ -8,6 +8,8 @@ export type TaskPropsType = {
 }
 
 export const Task: React.FC<TaskPropsType> = (props) => {
+    console.log('Task')
+
     const {id, text, isFinished} = props.task
     const [editMode, setEditMode] = useState(false)
     const [value, setValue] = useState(text)
@@ -40,7 +42,6 @@ export const Task: React.FC<TaskPropsType> = (props) => {
             <button onClick={removeTask}>del</button>
             {editMode ? <button onClick={saveTask}>save</button>
                 : <button onClick={editTask}>edit</button>}
-            <br/>
         </div>
     )
 }
