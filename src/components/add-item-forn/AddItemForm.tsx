@@ -15,11 +15,12 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
 
     const onClickHandler = () => {
         props.callBack(title)
+        setTitle('')
     }
 
     return (
         <div>
-            <input onChange={onChangeInputHandler} type="text"/>
+            <input value={title} onChange={onChangeInputHandler} type="text"/>
             <button onClick={onClickHandler}>+</button>
         </div>
     );
