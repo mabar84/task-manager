@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
-const AddItemForm = () => {
+type AddItemFormPropsType = {
+    callBack: (title: string) => void
+}
+
+const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+
+    const [title, setTitle] = useState('')
+
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    const onClickHandler = () => {
+        props.callBack(title)
+    }
+
     return (
         <div>
-            <input type="text"/>
-            <button>+</button>
+            <input onChange={onChangeInputHandler} type="text"/>
+            <button onClick={onClickHandler}>+</button>
         </div>
     );
 };

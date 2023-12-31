@@ -27,8 +27,11 @@ export const Task: React.FC<TaskPropsType> = (props) => {
 
     return (
         <div>
-            {editMode ? <input onChange={onChangeInputHandler} value={value} autoFocus/>
-                : <div style={{backgroundColor: 'red', width: 'max-content', cursor: 'pointer'}}>
+            {editMode
+                ? <div>
+                    <input onChange={onChangeInputHandler} value={value} autoFocus/>
+                </div>
+                : <div>
                     <input onChange={changeTaskStatus} checked={isFinished} id={`checkbox-${props.taskListId}-${id}`}
                            type="checkbox"/>
                     <label htmlFor={`checkbox-${props.taskListId}-${id}`}>{text}</label>

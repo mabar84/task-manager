@@ -45,6 +45,9 @@ const initialState: StateType = [
 
 export const taskListReducer = (state: StateType = initialState, action: ActionsType): StateType => {
     switch (action.type) {
+        case 'ADD-TASK-LIST': {
+            return [{id: state.length + 1, title: action.title, status: 'all', tasks: []}, ...state]
+        }
         case 'REMOVE-TASK': {
             return state.map(tl => tl.id === action.taskListId
                 ? {...tl, tasks: tl.tasks.filter(t => t.id !== action.taskId)}
@@ -105,9 +108,11 @@ type ActionsType =
     | ReturnType<typeof removeTaskListAC>
     | ReturnType<typeof changeTaskStatusAC>
     | ReturnType<typeof changeTaskTitleAC>
+    | ReturnType<typeof addTaskListAC>
 
 export const removeTaskAC = (taskListId: number, taskId: number) => ({type: 'REMOVE-TASK' as const, taskListId, taskId})
 export const removeTaskListAC = (taskListId: number) => ({type: 'REMOVE-TASK-LIST' as const, taskListId})
+export const addTaskListAC = (title: string) => ({type: 'ADD-TASK-LIST' as const, title})
 
 export const changeTaskStatusAC = (taskListId: number, taskId: number, isFinished: boolean) => ({
     type: 'CHANGE-TASK-STATUS' as const,

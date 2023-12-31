@@ -17,12 +17,13 @@ export const TaskList: React.FC<TaskListPropsType> = (props) => {
 
     return (
         <div style={{border: '1px solid red', width: '300px', padding: '5px'}}>
-            <AddItemForm/>
             <h3>
                 {title}
                 <button onClick={removeTaskList}>del</button>
                 {/*<button onClick={editTaskListTitle}>edit</button>*/}
             </h3>
+            <AddItemForm callBack={() => {
+            }}/>
             {tasks.map(t => <Task key={t.id} task={t} taskListId={id}/>)}
         </div>
     );
