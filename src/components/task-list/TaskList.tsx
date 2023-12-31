@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useCallback, useState} from 'react';
 import {addTaskAC, changeTaskListTitleAC, removeTaskListAC, TaskListType} from '../../state/task-list-reducer';
 import {Task} from '../task/Task';
 import AddItemForm from '../add-item-forn/AddItemForm';
@@ -8,7 +8,7 @@ type TaskListPropsType = {
     taskList: TaskListType
 }
 
-export const TaskList: React.FC<TaskListPropsType> = (props) => {
+export const TaskList: React.FC<TaskListPropsType> = memo((props) => {
     console.log('TaskList')
     const {id, title, tasks} = props.taskList
     const [editMode, setEditMode] = useState(false)
@@ -23,7 +23,7 @@ export const TaskList: React.FC<TaskListPropsType> = (props) => {
     }
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
 
-    const addTask = (title: string) => dispatch(addTaskAC(id, title))
+    const addTask = useCallback((title: string) => dispatch(addTaskAC(id, title)), [addTaskAC])
 
     const removeTaskList = () => dispatch(removeTaskListAC(id))
 
@@ -41,4 +41,4 @@ export const TaskList: React.FC<TaskListPropsType> = (props) => {
             {tasks.map(t => <Task key={t.id} task={t} taskListId={id}/>)}
         </div>
     );
-}
+})

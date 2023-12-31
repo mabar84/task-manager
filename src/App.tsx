@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {TaskList} from './components/task-list/TaskList';
 import AddItemForm from './components/add-item-forn/AddItemForm';
 import {useDispatch, useSelector} from 'react-redux';
@@ -11,7 +11,7 @@ export const App = () => {
     const taskLists = useSelector<AppRootStateType, TaskListType[]>(state => state.taskLitReducer)
     const dispatch = useDispatch()
 
-    const addTaskList = (title: string) => dispatch(addTaskListAC(title))
+    const addTaskList = useCallback((title: string) => dispatch(addTaskListAC(title)), [addTaskListAC])
 
     return (
         <div className="App">

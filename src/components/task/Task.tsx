@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import {
     changeTaskStatusAC,
     changeTaskTitleAC,
@@ -12,7 +12,7 @@ export type TaskPropsType = {
     taskListId: number
 }
 
-export const Task: React.FC<TaskPropsType> = (props) => {
+export const Task: React.FC<TaskPropsType> = memo((props) => {
     console.log('Task')
 
     const {id, text, isFinished} = props.task
@@ -49,4 +49,4 @@ export const Task: React.FC<TaskPropsType> = (props) => {
                 : <button onClick={editTask}>edit</button>}
         </div>
     )
-}
+})

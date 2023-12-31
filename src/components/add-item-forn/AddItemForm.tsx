@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 
 type AddItemFormPropsType = {
     callBack: (title: string) => void
 }
 
-const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
     console.log('AddItemForm')
 
     const [title, setTitle] = useState('')
@@ -24,6 +24,6 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             <button onClick={onClickHandler}>+</button>
         </div>
     );
-};
+});
 
 export default AddItemForm;
