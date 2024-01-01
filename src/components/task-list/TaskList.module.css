@@ -1,0 +1,13 @@
+.taskList {
+    border: 1px solid red;
+    width: 300px;
+    padding: 5px;
+}
+
+.taskList h3 {
+    margin: 0;
+}
+
+.active {
+    background: orange;
+}
